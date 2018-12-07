@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.frame.dao.UserDao">
+
+    <sql id="userColumns">
+        id as id,
+        username as username,
+        truename as truename,
+        password as password,
+        photo as photo
+	</sql>
+
+
+    <select id="get" resultType="UserEntity">
+        select
+        <include refid="userColumns"/>
+        from v_user
+        where id = #{id}
+    </select>
+
+    <select id="findByQuery" resultType="UserEntity">
+        select
+        <include refid="userColumns"/>
+        from v_user
+        <where>
+            <if test="username != null and username !=''">
+                and username like "%"+#{username}+"%"
+            </if>
+        </where>
+    </select>
+    <select id="findAll" resultType="UserEntity">
+        select
+        <include refid="userColumns"/>
+        from v_user
+
+    </select>
+
+
+    <insert id="insert">
+        INSERT INTO v_user(
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+          id,
+          username,
+          <if test="truename != null and truename !=''">
+            truename,
+          </if>
+          <if test="photo != null and photo!=''">
+            photo,
+          </if>
+          password    
+        </trim>           
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+          #{id},
+          #{username},
+          <if test="truename != null and truename !=''">
+            #{ truename},
+          </if>
+          <if test="photo != null and photo!=''">
+            #{photo},
+          </if>
+          #{password}    
+        </trim>
+    </insert>
+
+    <update id="update">
+		UPDATE v_user SET
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            username = #{username},
+            <if test="truename != null and truename !=''">
+                truename = #{ truename},
+            </if>
+            <if test="photo != null and photo!=''">
+                photo = #{photo},
+            </if>
+            password = #{password}   
+        </trim>
+        WHERE id = #{id}
+	</update>
+
+    <update id="delete">
+		DELETE FROM v_user
+		WHERE id = #{id}
+	</update>
+
+</mapper>
