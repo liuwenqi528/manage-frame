@@ -1,9 +1,11 @@
 package com.manage.frame.controller;
 
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 /**
  * Created by
@@ -13,11 +15,14 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 @SpringBootApplication
-@MapperScan(basePackages = "com.manage.frame.dao")
+@EnableTransactionManagement
+@MapperScan(basePackages = "com.manage.frame.entity")
 @ComponentScan(basePackages = {"com.manage.frame"})
 public class ManageApplication {
     public static void main(String[] args) {
-        SpringApplication.run(ManageApplication.class, args);
+        SpringApplication app = new SpringApplication(ManageApplication.class);
+        app.setBannerMode(Banner.Mode.OFF);
+        app.run(args);
     }
 
 }

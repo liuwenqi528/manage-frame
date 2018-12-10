@@ -1,4 +1,4 @@
-package com.manage.frame.entity.dao;
+package com.manage.frame.entity;
 
 import lombok.Getter;
 import lombok.Setter;

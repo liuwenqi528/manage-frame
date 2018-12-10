@@ -1,7 +1,7 @@
 package com.manage.frame.service.impl;
 
 import com.manage.frame.dao.UserDao;
-import com.manage.frame.entity.dao.UserEntity;
+import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

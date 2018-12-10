@@ -1,6 +1,6 @@
 package com.manage.frame.dao;
 
-import com.manage.frame.entity.dao.UserEntity;
+import com.manage.frame.entity.UserEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

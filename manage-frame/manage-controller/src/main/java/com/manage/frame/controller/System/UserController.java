@@ -1,6 +1,6 @@
 package com.manage.frame.controller.System;
 
-import com.manage.frame.entity.dao.UserEntity;
+import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
 import com.manage.frame.utils.ResponseParam;
 import org.springframework.beans.factory.annotation.Autowired;

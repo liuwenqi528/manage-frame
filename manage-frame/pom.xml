@@ -18,6 +18,7 @@
         <module>manage-entity</module>
         <module>manage-service</module>
         <module>manage-common</module>
+        <module>manage-shiro</module>
     </modules>
 
     <properties>
@@ -32,8 +33,6 @@
         <spring-mobile-device.version>1.1.5.RELEASE</spring-mobile-device.version>
 
         <!--阿里资源配置-->
-        <ali.fastjson.version>1.2.5</ali.fastjson.version>
-
         <commons.fileupload.version>1.2.2</commons.fileupload.version>
         <commons-lang3.version>3.2.1</commons-lang3.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
@@ -42,14 +41,19 @@
 
         <hessian.version>4.0.51</hessian.version>
 
-        <druid.version>1.1.10</druid.version>
-
         <!-- mybatis版本号 -->
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <mysql-connector-java.version>5.1.42</mysql-connector-java.version>
 
-
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <spring-boot.version>1.5.9.RELEASE</spring-boot.version>
+        <mybatisplus-spring-boot-starter.version>1.0.5</mybatisplus-spring-boot-starter.version>
+        <mybatisplus.version>2.1.8</mybatisplus.version>
+        <fastjson.version>1.2.39</fastjson.version>
+        <shiro.version>1.4.0</shiro.version>
+        <shiro-redis.version>2.4.2.1-RELEASE</shiro-redis.version>
         <!--docker 容器相关-->
         <!--<docker.repository>hub.fosung.com</docker.repository>-->
         <!--<docker.image.jar>${project.build.finalName}.jar</docker.image.jar>-->
@@ -71,13 +75,48 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!--Json-->
+        <!--在外部tomcat中发布故移除内置包-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <version>${spring-boot.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>${spring-boot.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring-boot.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <!-- mybatis-plus begin -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatisplus-spring-boot-starter</artifactId>
+            <version>${mybatisplus-spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+            <version>${mybatisplus.version}</version>
+        </dependency>
+        <!-- mybatis-plus end -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>${ali.fastjson.version}</version>
+            <version>${fastjson.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
         <!--文件上传-->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -112,31 +151,22 @@
             <optional>true</optional>
         </dependency>
         <!--数据库连接池-->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
-            <version>${druid.version}</version>
-        </dependency>
+        <!--shiro add-->
 
-        <!-- mybatis start -->
+        <!-- shiro权限控制框架 -->
         <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.2</version>
+        <groupId>org.apache.shiro</groupId>
+        <artifactId>shiro-spring</artifactId>
+        <version>1.4.0</version>
         </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.4.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis-spring</artifactId>
-            <version>1.3.2</version>
-        </dependency>
-        <!-- mybatis end -->
+        <!--shiro end-->
 
-
+        <!-- 配置使用redis启动器 -->
+        <dependency>
+            <groupId>org.crazycake</groupId>
+            <artifactId>shiro-redis</artifactId>
+            <version>${shiro-redis.version}</version>
+        </dependency>
     </dependencies>
 
     <build>

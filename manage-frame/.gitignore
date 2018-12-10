@@ -9,7 +9,7 @@
 .idea/
 *.iml
 *.log
-
+SQL/
 # Sensitive or high-churn files:
 .idea/dataSources/
 .idea/dataSources.ids
@@ -34,7 +34,7 @@
 # IntelliJ
 out/
 target/
-
+SQL/
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 

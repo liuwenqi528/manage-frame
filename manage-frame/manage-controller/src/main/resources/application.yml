@@ -17,11 +17,54 @@ spring:
     password: mama0927
     username: root
     url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+    type: com.alibaba.druid.pool.DruidDataSource
+  http:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+  aop:
+    auto: true
+#数据源
+#  dataSource:
+#    druid:
+#       #数据源1 业务数据
+#      dataSource1:
+#        url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+#        username: root
+#        password: mama0927
+#        driverClassName: com.mysql.jdbc.Driver
+#      #shiro数据源，用于权限相关
+#      shiroDataSource:
+#        #MyISAM和InnoDB是两种最常用的数据库引擎，默认的引擎是MyISAM，性能最好，但不支持事务处理，只有InnoDB支持事务
+#        url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+#        username: root
+#        password: mama0927
+#        driverClassName: com.mysql.jdbc.Driver
+
 #mybatis
 mybatis:
-  type-aliases-package: com.manage.frame.entity.dao
+  type-aliases-package: com.manage.frame.entity
   mapper-locations: classpath:mapper/*.xml
+  #开启MyBatis的二级缓存
+  configuration:
+    cache-enabled: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    call-setters-on-nulls: true
+mapper:
+  not-empty: false
+pagehelper:
+    offsetAsPageNum: true
+    helperDialect: postgresql
+    reasonable: false
+    params: count=countSql
 
 logging:
-  path: log/
-  file: manage.log
+  file: manage.log #加/在盘符下创建  不加/在项目下创建
+
+redis:
+  shiro:
+    host: 127.0.0.1
+    port: 6379
+    timeout: 0
+    password:

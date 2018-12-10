@@ -21,13 +21,15 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
 
     /**
      * 添加拦截器
+     *
      * @param registry
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         log.info("添加拦截器~~~~~~~~");
         registry.addInterceptor(new OriginsInterceptor()).addPathPatterns("/**");
-        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login","/system/logout");
-        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login","/system/logout");
+        registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login", "/system/logout");
+        registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login", "/system/logout");
     }
+
 }

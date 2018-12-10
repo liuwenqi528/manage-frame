@@ -1,6 +1,6 @@
 package com.manage.frame.service;
 
-import com.manage.frame.entity.dao.UserEntity;
+import com.manage.frame.entity.UserEntity;
 
 import java.util.List;
 
