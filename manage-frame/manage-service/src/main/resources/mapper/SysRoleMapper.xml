@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huitu.mp.shiro.mapper.SysRoleMapper">
+<mapper namespace="com.manage.frame.dao.SysRoleDao">
 
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
-    <select id="selectRoleByUser" parameterType="com.huitu.mp.shiro.entity.UserInfo" resultType="com.huitu.mp.shiro.entity.SysRole">
+    <select id="selectRoleByUser" parameterType="UserInfo" resultType="SysRole">
         SELECT
             sr.*
         FROM

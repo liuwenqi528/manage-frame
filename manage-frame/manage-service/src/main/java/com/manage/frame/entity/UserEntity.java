@@ -28,6 +28,18 @@ public class UserEntity implements Serializable {
 
     private String photo;
 
+    private Integer state;
+
+    private String salt;
+    /**
+     * 密码盐.
+     *
+     * @return
+     */
+    public String getCredentialsSalt() {
+        return this.username + this.salt;
+    }
+
 }
 
 

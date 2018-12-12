@@ -7,21 +7,32 @@
         username as username,
         truename as truename,
         password as password,
-        photo as photo
+        photo as photo,
+        state as state,
+        salt as salt
 	</sql>
 
+    <!--登陆-->
+    <select id="login" resultType="UserEntity">
+        select
+        <include refid="userColumns"/>
+        from m_user
+        where username = #{username}
+    </select>
 
+    <!--根据ID获取详情-->
     <select id="get" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from v_user
+        from m_user
         where id = #{id}
     </select>
+
 
     <select id="findByQuery" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from v_user
+        from m_user
         <where>
             <if test="username != null and username !=''">
                 and username like "%"+#{username}+"%"
@@ -31,39 +42,40 @@
     <select id="findAll" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from v_user
+        from m_user
 
     </select>
 
 
     <insert id="insert">
-        INSERT INTO v_user(
+        INSERT INTO m_user(
         <trim prefix="(" suffix=")" suffixOverrides=",">
-          id,
-          username,
-          <if test="truename != null and truename !=''">
-            truename,
-          </if>
-          <if test="photo != null and photo!=''">
-            photo,
-          </if>
-          password    
-        </trim>           
+            id,
+            username,
+            <if test="truename != null and truename !=''">
+                truename,
+            </if>
+            <if test="photo != null and photo!=''">
+                photo,
+            </if>
+            password    
+        </trim>
+           
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-          #{id},
-          #{username},
-          <if test="truename != null and truename !=''">
-            #{ truename},
-          </if>
-          <if test="photo != null and photo!=''">
-            #{photo},
-          </if>
-          #{password}    
+            #{id},
+            #{username},
+            <if test="truename != null and truename !=''">
+                #{ truename},
+            </if>
+            <if test="photo != null and photo!=''">
+                #{photo},
+            </if>
+            #{password}    
         </trim>
     </insert>
 
     <update id="update">
-		UPDATE v_user SET
+        UPDATE m_user SET
         <trim prefix="(" suffix=")" suffixOverrides=",">
             username = #{username},
             <if test="truename != null and truename !=''">
@@ -75,10 +87,10 @@
             password = #{password}   
         </trim>
         WHERE id = #{id}
-	</update>
+    </update>
 
     <update id="delete">
-		DELETE FROM v_user
+		DELETE FROM m_user
 		WHERE id = #{id}
 	</update>
 

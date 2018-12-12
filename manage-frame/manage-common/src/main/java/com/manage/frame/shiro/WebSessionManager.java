@@ -1,4 +1,4 @@
-package com.manage.frame.shiro.config;
+package com.manage.frame.shiro;
 
 /**
  * Created by
@@ -7,7 +7,9 @@ package com.manage.frame.shiro.config;
  * Time: 18:41
  */
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
+import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.util.StringUtils;
 
@@ -24,7 +26,8 @@ import java.io.Serializable;
  * 我们选择在ajax的请求头中传递sessionId，因此需要重写shiro获取sessionId的方式。
  * 自定义MySessionManager类继承DefaultWebSessionManager类，重写getSessionId方法   
  */
-public class WebSessionManager extends org.apache.shiro.web.session.mgt.DefaultWebSessionManager {
+@Slf4j
+public class WebSessionManager extends DefaultWebSessionManager {
 
     private static final String AUTHORIZATION = "Authorization";
 
@@ -37,6 +40,7 @@ public class WebSessionManager extends org.apache.shiro.web.session.mgt.DefaultW
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
         String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);
+        log.info("id:{}",id);
         //如果请求头中有 Authorization 则其值为sessionId
         if (!StringUtils.isEmpty(id)) {
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);

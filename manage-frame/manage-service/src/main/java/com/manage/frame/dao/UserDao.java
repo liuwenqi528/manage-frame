@@ -24,4 +24,6 @@ public interface UserDao {
     int delete(String id);
 
     List<UserEntity> findAll();
+
+    UserEntity login(UserEntity ew);
 }

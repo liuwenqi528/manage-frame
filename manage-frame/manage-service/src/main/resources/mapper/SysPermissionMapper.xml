@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.huitu.mp.shiro.mapper.SysPermissionMapper">
+<mapper namespace="com.manage.frame.dao.SysPermissionDao">
 
     <!-- 开启二级缓存 -->
     <!--<cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
-    <select id="selectPermByUser" parameterType="com.huitu.mp.shiro.entity.UserInfo" resultType="com.huitu.mp.shiro.entity.SysPermission">
+    <select id="selectPermByUser" parameterType="UserInfo" resultType="SysPermission">
         SELECT
             sp.*
         FROM

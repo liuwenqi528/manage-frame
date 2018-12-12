@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.manage.frame.entity")
+@MapperScan(basePackages = "com.manage.frame.dao")
 @ComponentScan(basePackages = {"com.manage.frame"})
 public class ManageApplication {
     public static void main(String[] args) {

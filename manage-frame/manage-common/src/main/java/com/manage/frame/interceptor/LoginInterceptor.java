@@ -1,5 +1,8 @@
 package com.manage.frame.interceptor;
 
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Wangyihua
  */
+@Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
     private static Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 
@@ -34,7 +38,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         if ("OPTIONS".equals(method)) {
             return true;
         }
-
+        Subject subject = SecurityUtils.getSubject();
+        Object obj = SecurityUtils.getSubject().getPrincipal();
+        log.info("user interceptor用户信息：{}", obj);
         String userId = httpServletRequest.getParameter("userId");
         if (StringUtils.isEmpty(userId)) {
 //            Object obj = httpServletRequest.getSession().getAttribute(Consts.SESSION_USER);

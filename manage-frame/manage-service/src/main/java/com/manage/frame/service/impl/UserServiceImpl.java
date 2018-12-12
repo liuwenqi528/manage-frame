@@ -2,6 +2,7 @@ package com.manage.frame.service.impl;
 
 import com.manage.frame.dao.UserDao;
 import com.manage.frame.entity.UserEntity;
+import com.manage.frame.entity.UserInfo;
 import com.manage.frame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserEntity login(UserEntity ew) {
+        return userDao.login(ew);
+    }
+
+    @Override
     @Transactional(readOnly = false)
     public int insert(UserEntity entity) {
         entity.setId(UUID.randomUUID().toString());
@@ -56,4 +62,5 @@ public class UserServiceImpl implements UserService {
     public int delete(String id) {
         return userDao.delete(id);
     }
+
 }

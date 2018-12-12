@@ -1,7 +1,7 @@
 web:
   config:
     maxAge: 3600
-    allowedOrigins: http://localhost:8082
+    allowedOrigins: http://localhost:8081
 
 server:
   port: 8800
@@ -18,13 +18,6 @@ spring:
     username: root
     url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
-  http:
-    encoding:
-      charset: UTF-8
-      enabled: true
-      force: true
-  aop:
-    auto: true
 #数据源
 #  dataSource:
 #    druid:
@@ -47,17 +40,13 @@ mybatis:
   type-aliases-package: com.manage.frame.entity
   mapper-locations: classpath:mapper/*.xml
   #开启MyBatis的二级缓存
-  configuration:
-    cache-enabled: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-    call-setters-on-nulls: true
+#  configuration:
+#    cache-enabled: true
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    call-setters-on-nulls: true
 mapper:
   not-empty: false
-pagehelper:
-    offsetAsPageNum: true
-    helperDialect: postgresql
-    reasonable: false
-    params: count=countSql
+
 
 logging:
   file: manage.log #加/在盘符下创建  不加/在项目下创建

@@ -3,6 +3,8 @@ package com.manage.frame.controller.System;
 import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
 import com.manage.frame.utils.ResponseParam;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 //        allowedHeaders = "*",
 //        allowCredentials = "true"
 //)
+@Slf4j
 public class UserController {
 
     @Autowired

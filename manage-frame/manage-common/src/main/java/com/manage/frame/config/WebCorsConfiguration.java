@@ -16,7 +16,7 @@ import org.springframework.web.filter.CorsFilter;
  * Time: 11:31
  */
 @Slf4j
-//@Configuration
+@Configuration
 public class WebCorsConfiguration {
     @Value("${web.config.allowedOrigins}")
     private String allowedOrigin;

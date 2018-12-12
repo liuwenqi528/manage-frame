@@ -29,8 +29,8 @@ public class AuthInterceptor implements HandlerInterceptor {
         //        //校验session中的用户信息
 //        Object obj = request.getSession().getAttribute(Consts.SESSION_USER);
 //        SsoUserInfo userInfo = ( SsoUserInfo )obj;
-//        String url = request.getServletPath();
-//        logger.debug("请求地址：{}",url);
+        String url = request.getServletPath();
+        logger.debug("请求地址：{}",url);
 //        boolean auth = authService.authenticationByUserAndMenu(userInfo.getUserId(),url);
 //        //如果当前不具有权限
 //        if(!auth){

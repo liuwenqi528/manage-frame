@@ -1,6 +1,7 @@
 package com.manage.frame.service;
 
 import com.manage.frame.entity.UserEntity;
+import com.manage.frame.entity.UserInfo;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface UserService {
     int delete(String id);
 
     List<UserEntity> findAll();
+
+    UserEntity login(UserEntity ew);
 }

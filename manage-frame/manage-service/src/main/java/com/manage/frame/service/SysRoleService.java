@@ -1,7 +1,7 @@
-package com.manage.frame.shiro.service;
+package com.manage.frame.service;
 
-import com.manage.frame.shiro.entity.SysRole;
-import com.manage.frame.shiro.entity.UserInfo;
+import com.manage.frame.entity.SysRole;
+import com.manage.frame.entity.UserInfo;
 
 import java.util.List;
 
