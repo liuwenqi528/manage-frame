@@ -8,13 +8,17 @@ package com.manage.frame.shiro;
  */
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.web.servlet.Cookie;
 import org.apache.shiro.web.servlet.ShiroHttpServletRequest;
+import org.apache.shiro.web.servlet.SimpleCookie;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.Serializable;
 
 /**
@@ -39,14 +43,22 @@ public class WebSessionManager extends DefaultWebSessionManager {
 
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
-        String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);
-        log.info("id:{}",id);
+//        String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);
+        String sid = request.getParameter("__sid");
+        log.info("sid:{}", sid);
         //如果请求头中有 Authorization 则其值为sessionId
-        if (!StringUtils.isEmpty(id)) {
+        if (!StringUtils.isEmpty(sid)) {
+            if (WebUtils.isTrue(request, "__cookie")){
+                HttpServletRequest rq = (HttpServletRequest)request;
+                HttpServletResponse rs = (HttpServletResponse)response;
+                Cookie template = getSessionIdCookie();
+                Cookie cookie = new SimpleCookie(template);
+                cookie.setValue(sid); cookie.saveTo(rq, rs);
+            }
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_SOURCE, REFERENCED_SESSION_ID_SOURCE);
-            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, id);
+            request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID, sid);
             request.setAttribute(ShiroHttpServletRequest.REFERENCED_SESSION_ID_IS_VALID, Boolean.TRUE);
-            return id;
+            return sid;
         } else {
             //否则按默认规则从cookie取sessionId
             return super.getSessionId(request, response);

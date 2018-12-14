@@ -1,8 +1,11 @@
 package com.manage.frame.entity;
 
+import lombok.Data;
+
 /**
  * Created by Administrator on 2018/1/10.
  */
+@Data
 public class SysUser {
 
     private String id;

@@ -1,5 +1,8 @@
 package com.manage.frame.entity;
 
+import lombok.Data;
+import lombok.ToString;
+
 import java.io.Serializable;
 
 /**
@@ -10,6 +13,8 @@ import java.io.Serializable;
  * @author huitu123
  * @since 2018-01-23
  */
+@Data
+@ToString
 public class SysRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -20,45 +25,5 @@ public class SysRole implements Serializable {
     private String role;
 
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Boolean getAvailable() {
-        return available;
-    }
-
-    public void setAvailable(Boolean available) {
-        this.available = available;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "SysRole{" +
-                "id=" + id +
-                ", available=" + available +
-                ", description=" + description +
-                ", role=" + role +
-                "}";
-    }
 }

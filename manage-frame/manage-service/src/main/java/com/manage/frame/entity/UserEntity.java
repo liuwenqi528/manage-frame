@@ -3,6 +3,7 @@ package com.manage.frame.entity;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.beans.Transient;
 import java.io.Serializable;
 
 
@@ -30,12 +31,15 @@ public class UserEntity implements Serializable {
 
     private Integer state;
 
+
     private String salt;
+
     /**
      * 密码盐.
      *
      * @return
      */
+    @Transient
     public String getCredentialsSalt() {
         return this.username + this.salt;
     }

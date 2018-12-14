@@ -4,9 +4,14 @@ import com.manage.frame.dao.UserDao;
 import com.manage.frame.entity.UserEntity;
 import com.manage.frame.entity.UserInfo;
 import com.manage.frame.service.UserService;
+import org.apache.shiro.crypto.hash.Md5Hash;
+import org.apache.shiro.crypto.hash.Sha1Hash;
+import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.security.provider.MD5;
 
 import java.util.List;
 import java.util.UUID;
@@ -48,6 +53,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = false)
     public int insert(UserEntity entity) {
         entity.setId(UUID.randomUUID().toString());
+        ByteSource credentialsSalt = ByteSource.Util.bytes(entity.getUsername());
+        String pwd = new SimpleHash("MD5",entity.getPassword(),credentialsSalt,1024).toString();
+        entity.setPassword(pwd);
         return userDao.insert(entity);
     }
 
@@ -63,4 +71,14 @@ public class UserServiceImpl implements UserService {
         return userDao.delete(id);
     }
 
+    public static void main(String[] args) {
+        String hashAlgorithmName = "MD5";//加密方式，有 MD5  SHA-1
+        String credentials = "123456";//密码
+        int hashIterations = 1024;//循环次数
+        ByteSource credentialsSalt = ByteSource.Util.bytes("admin");
+        String pwd = new SimpleHash(hashAlgorithmName,credentials,credentialsSalt,1024).toString();
+        System.out.println("pwd==="+pwd);
+        System.out.println(new Md5Hash("123456","admin").toHex());
+//        new Sha1Hash();
+    }
 }

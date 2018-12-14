@@ -18,6 +18,7 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -70,7 +71,8 @@ public class MyShiroRealm extends AuthorizingRealm {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         //获取用户的输入的账号.
         String username = usernamePasswordToken.getUsername();
-        System.out.println(usernamePasswordToken.getCredentials());
+        //        获取token中的密码
+        String password = new String((char[])usernamePasswordToken.getCredentials());
         //通过username从数据库中查找 User对象，如果找到，没找到.
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserEntity ew = new UserEntity();
@@ -83,15 +85,11 @@ public class MyShiroRealm extends AuthorizingRealm {
         if (userInfo.getState() == 1) { //账户冻结
             throw new LockedAccountException();
         }
-        UserInfo ui = new UserInfo();
-        ui.setUsername(userInfo.getUsername());
-        ui.setName(userInfo.getTruename());
-        ui.setPassword(userInfo.getPassword());
-        ui.setUid(userInfo.getId());
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo, //用户信息
-                userInfo.getPassword().toCharArray(), //密码
-//                ByteSource.Util.bytes(userInfo.getCredentialsSalt()),//salt=username+salt
+//                userInfo.getPassword().toCharArray(), //密码
+                new Md5Hash(password,userInfo.getUsername()).toHex(),
+                ByteSource.Util.bytes(userInfo.getUsername()),//salt=username+salt
                 getName()  //realm name
         );
         return authenticationInfo;

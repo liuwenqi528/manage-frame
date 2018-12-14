@@ -29,7 +29,7 @@ public class WebCorsConfiguration {
     private CorsConfiguration buildConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.addAllowedOrigin(allowedOrigin);
-        corsConfiguration.addAllowedOrigin(null);
+//        corsConfiguration.addAllowedOrigin(null);
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);
