@@ -16,7 +16,7 @@
     <select id="login" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_user
+        from m_sys_user
         where username = #{username}
     </select>
 
@@ -24,7 +24,7 @@
     <select id="get" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_user
+        from m_sys_user
         where id = #{id}
     </select>
 
@@ -32,7 +32,7 @@
     <select id="findByQuery" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_user
+        from m_sys_user
         <where>
             <if test="username != null and username !=''">
                 and username like "%"+#{username}+"%"
@@ -42,13 +42,13 @@
     <select id="findAll" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_user
+        from m_sys_user
 
     </select>
 
 
     <insert id="insert">
-        INSERT INTO m_user(
+        INSERT INTO m_sys_user(
         <trim prefix="(" suffix=")" suffixOverrides=",">
             id,
             username,
@@ -75,7 +75,7 @@
     </insert>
 
     <update id="update">
-        UPDATE m_user SET
+        UPDATE m_sys_user SET
         <trim prefix="(" suffix=")" suffixOverrides=",">
             username = #{username},
             <if test="truename != null and truename !=''">
@@ -90,7 +90,7 @@
     </update>
 
     <update id="delete">
-		DELETE FROM m_user
+		DELETE FROM m_sys_user
 		WHERE id = #{id}
 	</update>
 

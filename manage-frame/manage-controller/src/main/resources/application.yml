@@ -16,7 +16,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     password: mama0927
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/study?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/manage_system?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
 #数据源
 #  dataSource:
