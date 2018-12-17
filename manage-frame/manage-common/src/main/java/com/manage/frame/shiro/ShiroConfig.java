@@ -36,7 +36,7 @@ import java.util.Map;
 public class ShiroConfig {
 
     @Bean
-    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
+    public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
         return new LifecycleBeanPostProcessor();
     }
 
@@ -68,8 +68,6 @@ public class ShiroConfig {
         //未授权界面;
         shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
 
-
-
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //注意过滤器配置顺序 不能颠倒
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
@@ -82,8 +80,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/**", "user");//如果设置为authc,则会一直让登陆
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        Map<String,Filter> filters = new HashMap<>();
-        filters.put("authc",formAuthenticationFilter());
+        Map<String, Filter> filters = new HashMap<>();
+        filters.put("authc", formAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filters);
         return shiroFilterFactoryBean;
     }
@@ -142,6 +140,7 @@ public class ShiroConfig {
         simpleCookie.setMaxAge(2592000);
         return simpleCookie;
     }
+
     /**
      * cookie 对象
      *
@@ -161,6 +160,7 @@ public class ShiroConfig {
         simpleCookie.setMaxAge(-1);
         return simpleCookie;
     }
+
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();

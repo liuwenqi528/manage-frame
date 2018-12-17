@@ -1,11 +1,9 @@
 package com.manage.frame.controller.System;
 
 import com.manage.frame.entity.UserEntity;
-import com.manage.frame.entity.UserInfo;
 import com.manage.frame.utils.ResponseParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -35,11 +33,11 @@ public class ShiroController {
     public ResponseParam ajaxLogin(@RequestBody UserEntity userEntity) {
 
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword(),userEntity.getRememberMe());
+        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRememberMe());
         try {
             subject.login(token);
 //            UserInfo userInfo = (UserInfo)SecurityUtils.getSubject().getPrincipal();
-            Object userInfo =subject.getPrincipal();
+            Object userInfo = subject.getPrincipal();
             Object sessionId = subject.getSession().getId();
             log.info("userInfo信息：{}", userInfo);
             log.info("sessionId信息：{}", sessionId);
@@ -83,6 +81,7 @@ public class ShiroController {
         return ResponseParam.fail(ResponseParam.NO_LOGIN, "未登陆");
 
     }
+
     /**
      * 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
      *

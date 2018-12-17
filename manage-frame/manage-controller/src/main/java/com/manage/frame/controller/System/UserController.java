@@ -4,14 +4,9 @@ import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
 import com.manage.frame.utils.ResponseParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户控制层
@@ -39,7 +34,7 @@ public class UserController {
     @ResponseBody
     public ResponseParam get(@PathVariable("id") String id) {
         try {
-            return ResponseParam.fail("系统错误").data(userService.get(id));
+            return ResponseParam.success().data(userService.get(id));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseParam.fail();

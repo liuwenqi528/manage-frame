@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/manage-frame/manage.iml" filepath="$PROJECT_DIR$/manage-frame/manage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-frame/manage-common/manage-common.iml" filepath="$PROJECT_DIR$/manage-frame/manage-common/manage-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-frame/manage-controller/manage-controller.iml" filepath="$PROJECT_DIR$/manage-frame/manage-controller/manage-controller.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-frame/manage-entity/manage-entity.iml" filepath="$PROJECT_DIR$/manage-frame/manage-entity/manage-entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/manage-frame.iml" filepath="$PROJECT_DIR$/.idea/manage-frame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/manage-frame/manage-service/manage-service.iml" filepath="$PROJECT_DIR$/manage-frame/manage-service/manage-service.iml" />
+    </modules>
+  </component>
+</project>

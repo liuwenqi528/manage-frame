@@ -53,8 +53,9 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = false)
     public int insert(UserEntity entity) {
         entity.setId(UUID.randomUUID().toString());
-        ByteSource credentialsSalt = ByteSource.Util.bytes(entity.getUsername());
-        String pwd = new SimpleHash("MD5",entity.getPassword(),credentialsSalt,1024).toString();
+//        ByteSource credentialsSalt = ByteSource.Util.bytes(entity.getUsername());
+//        String pwd = new SimpleHash("MD5",entity.getPassword(),credentialsSalt,1024).toString();
+        String pwd = new Md5Hash(entity.getPassword(),entity.getUsername(),1024).toHex();
         entity.setPassword(pwd);
         return userDao.insert(entity);
     }

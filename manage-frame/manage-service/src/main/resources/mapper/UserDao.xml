@@ -38,40 +38,21 @@
                 and username like "%"+#{username}+"%"
             </if>
         </where>
+        order by username
     </select>
     <select id="findAll" resultType="UserEntity">
         select
         <include refid="userColumns"/>
         from m_sys_user
-
+        order by username
     </select>
 
 
-    <insert id="insert">
-        INSERT INTO m_sys_user(
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            id,
-            username,
-            <if test="truename != null and truename !=''">
-                truename,
-            </if>
-            <if test="photo != null and photo!=''">
-                photo,
-            </if>
-            password    
-        </trim>
-           
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            #{id},
-            #{username},
-            <if test="truename != null and truename !=''">
-                #{ truename},
-            </if>
-            <if test="photo != null and photo!=''">
-                #{photo},
-            </if>
-            #{password}    
-        </trim>
+    <insert id="insert" parameterType="UserEntity">
+       insert into m_sys_user
+       (id ,username,password,truename,photo,salt,state)
+       VALUES
+       (#{id},#{username},#{password},#{truename},#{photo},#{salt},#{state})
     </insert>
 
     <update id="update">

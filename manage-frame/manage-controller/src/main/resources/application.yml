@@ -14,9 +14,11 @@ spring:
     name: demo
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    password: mama0927
+#    url: jdbc:mysql://127.0.0.1:3306/manage_system?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
+#    password: mama0927
+    password: 123456
+    url: jdbc:mysql://127.0.0.1:3310/manage_system?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
     username: root
-    url: jdbc:mysql://127.0.0.1:3306/manage_system?serverTimezone=GMT&characterEncoding=utf8&useSSL=false
     type: com.alibaba.druid.pool.DruidDataSource
 #数据源
 #  dataSource:
