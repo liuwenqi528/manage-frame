@@ -35,26 +35,28 @@ public class ShiroController {
     public ResponseParam ajaxLogin(@RequestBody UserEntity userEntity) {
 
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword());
+        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword(),userEntity.getRememberMe());
         try {
             subject.login(token);
 //            UserInfo userInfo = (UserInfo)SecurityUtils.getSubject().getPrincipal();
-            Object userInfo =SecurityUtils.getSubject().getPrincipal();
+            Object userInfo =subject.getPrincipal();
             Object sessionId = subject.getSession().getId();
-            log.info("用户信息：{}", userInfo);
+            log.info("userInfo信息：{}", userInfo);
+            log.info("sessionId信息：{}", sessionId);
             return ResponseParam.success("登陆成功").data(userInfo);
         } catch (IncorrectCredentialsException e) {
+            log.debug("密码错误");
             e.printStackTrace();
-            return ResponseParam.success(ResponseParam.ERROR, "密码错误");
+            return ResponseParam.fail(ResponseParam.ERROR, "密码错误");
         } catch (LockedAccountException e) {
             e.printStackTrace();
-            return ResponseParam.success(ResponseParam.ERROR, "登录失败，该用户已被冻结");
+            return ResponseParam.fail(ResponseParam.ERROR, "登录失败，该用户已被冻结");
         } catch (UnknownAccountException e) {
             e.printStackTrace();
-            return ResponseParam.success(ResponseParam.ERROR, "该用户不存在");
+            return ResponseParam.fail(ResponseParam.ERROR, "该用户不存在");
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseParam.success(ResponseParam.ERROR, "失败");
+            return ResponseParam.fail(ResponseParam.ERROR, "失败");
         }
     }
 
@@ -77,6 +79,7 @@ public class ShiroController {
     @RequestMapping(value = "/noLogin")
     @ResponseBody
     public ResponseParam noLogin() {
+        log.info("noLogin");
         return ResponseParam.fail(ResponseParam.NO_LOGIN, "未登陆");
 
     }

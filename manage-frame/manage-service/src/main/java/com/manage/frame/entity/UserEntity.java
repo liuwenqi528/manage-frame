@@ -31,7 +31,7 @@ public class UserEntity implements Serializable {
 
     private Integer state;
 
-
+    private Boolean rememberMe;
     private String salt;
 
     /**

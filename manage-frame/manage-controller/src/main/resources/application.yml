@@ -50,10 +50,6 @@ mapper:
 
 logging:
   file: manage.log #加/在盘符下创建  不加/在项目下创建
-
-redis:
-  shiro:
-    host: 127.0.0.1
-    port: 6379
-    timeout: 0
-    password:
+# 打印sql
+  level:
+     com.manage.frame.dao : debug

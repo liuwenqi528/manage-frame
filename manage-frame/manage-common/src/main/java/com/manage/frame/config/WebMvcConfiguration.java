@@ -1,6 +1,7 @@
 package com.manage.frame.config;
 
 import com.manage.frame.interceptor.AuthInterceptor;
+import com.manage.frame.interceptor.CorsInterceptor;
 import com.manage.frame.interceptor.LoginInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -26,6 +27,7 @@ public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         log.info("添加拦截器~~~~~~~~");
+//        registry.addInterceptor(new CorsInterceptor()).addPathPatterns("/**");
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login", "/system/logout");
         registry.addInterceptor(new AuthInterceptor()).addPathPatterns("/**").excludePathPatterns("/system/login", "/system/logout");
     }
