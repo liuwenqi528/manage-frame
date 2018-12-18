@@ -18,14 +18,14 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
  * Time: 10:45
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class WebFileConfiguration {
 
     /**
      * 文件上传
      * @return
      */
-    @Bean("multipartResolver")
+//    @Bean("multipartResolver")
     public MultipartResolver multipartResolver() {
         log.info("文件上传");
         CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
