@@ -76,7 +76,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/ajaxLogin", "anon");
-        filterChainDefinitionMap.put("/manage/**", "authc");
+        filterChainDefinitionMap.put("/manage/**", "user");
         filterChainDefinitionMap.put("/**", "user");//如果设置为authc,则会一直让登陆
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -134,7 +134,7 @@ public class ShiroConfig {
         //setcookie()的第七个参数
         //设为true后，只能通过http访问，javascript无法访问
         //防止xss读取cookie
-        simpleCookie.setHttpOnly(true);
+//        simpleCookie.setHttpOnly(true);
         simpleCookie.setPath("/");
         //maxAge=-1表示浏览器关闭时失效此Cookie
         simpleCookie.setMaxAge(2592000);
@@ -154,7 +154,7 @@ public class ShiroConfig {
         //setcookie()的第七个参数
         //设为true后，只能通过http访问，javascript无法访问
         //防止xss读取cookie
-        simpleCookie.setHttpOnly(true);
+//        simpleCookie.setHttpOnly(true);
         simpleCookie.setPath("/");
         //maxAge=-1表示浏览器关闭时失效此Cookie
         simpleCookie.setMaxAge(-1);
