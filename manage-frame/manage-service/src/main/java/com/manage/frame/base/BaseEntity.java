@@ -1,4 +1,4 @@
-package com.manage.frame.base.entity;
+package com.manage.frame.base;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

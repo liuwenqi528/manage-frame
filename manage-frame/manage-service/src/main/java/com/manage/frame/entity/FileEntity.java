@@ -23,4 +23,5 @@ public class FileEntity {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date uploadTime;
     private String module;//
+    private String delFlag;
 }

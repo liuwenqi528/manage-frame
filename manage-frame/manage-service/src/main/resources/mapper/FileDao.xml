@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.frame.dao.FileDao">
+
+    <sql id="fileColumns">
+        id as id,
+        file_new_name as "fileNewName",
+        file_old_name as "fileOldName",
+        file_path as "filePath",
+        upload_time as "uploadTime",
+        "module" as "module",
+        del_flag as "delFlag"
+	</sql>
+
+
+    <!--根据ID获取详情-->
+    <select id="getOne" resultType="FileEntity">
+        select
+        <include refid="fileColumns"/>
+        from m_sys_file
+        where id = #{id}
+    </select>
+
+    <select id="getByParam" resultType="FileEntity">
+        select
+        <include refid="fileColumns"/>
+        from m_sys_file
+        where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="FileEntity">
+        select
+        <include refid="fileColumns"/>
+        from m_sys_file
+    </select>
+
+    <select id="findByParam" resultType="FileEntity">
+        select
+        <include refid="fileColumns"/>
+        from m_sys_file
+
+    </select>
+
+
+
+    <insert id="insert" parameterType="FileEntity">
+       insert into m_sys_file
+       (id ,file_new_name,file_old_name,file_path,upload_time,module,del_flag)
+       VALUES
+       (#{id},#{fileNewName},#{fileOldName},#{filePath},#{uploadTime},#{module},#{delFlag})
+    </insert>
+
+    <update id="update">
+        UPDATE m_sys_file SET
+       file_new_name =#{fileNewName},
+        file_old_name =#{fileOldName},
+        file_path =#{filePath},
+        upload_time =#{uploadTime},
+        "module" =#{module},
+        del_flag =#{delFlag}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+		DELETE FROM m_sys_file
+		WHERE id = #{id}
+	</update>
+    <delete id="deleteByParam">
+        delete from m_sys_file where id=#{id}
+    </delete>
+</mapper>
