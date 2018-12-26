@@ -24,4 +24,6 @@ public class FileEntity {
     private Date uploadTime;
     private String module;//
     private String delFlag;
+
+
 }

@@ -48,6 +48,12 @@ public class FileController {
         }
     }
 
+    /**
+     * 图片回显
+     * @param id
+     * @param response
+     * @return
+     */
     @RequestMapping(value = "/fileDownload/{id}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseParam fileDownload(@PathVariable String id , HttpServletResponse response) {
@@ -60,4 +66,5 @@ public class FileController {
             return ResponseParam.fail();
         }
     }
+
 }

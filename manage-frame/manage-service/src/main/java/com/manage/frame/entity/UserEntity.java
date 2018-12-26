@@ -34,6 +34,8 @@ public class UserEntity implements Serializable {
     private Boolean rememberMe;
     private String salt;
 
+    private FileEntity fileEntity;
+
     /**
      * 密码盐.
      *

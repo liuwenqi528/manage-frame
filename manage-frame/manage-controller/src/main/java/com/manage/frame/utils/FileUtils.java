@@ -23,7 +23,7 @@ import java.util.UUID;
 public class FileUtils {
     //    @Value("${file.path.upload}")
     //    读取文件时的路径
-    private static final String FILE_PATH = "/fileManage/";
+    private static final String FILE_PATH = "/fileEcho/";
     //    存储地址
     private static final String UPLOAD_PATH = "e://file/manage/";
     //    编码使用的字符
@@ -52,9 +52,34 @@ public class FileUtils {
         System.out.println(new String(chars));
 
     }
+
+    /**
+     * 回显图片
+     * @param req
+     * @param resp
+     */
+    public static void fileEcho(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+        String filepath = req.getRequestURI();
+        int index = filepath.indexOf(FILE_PATH);
+        if(index >= 0) {
+            filepath = filepath.substring(index +FILE_PATH.length());
+        }
+            filepath = UriUtils.decode(filepath, "UTF-8");
+        File file = new File(UPLOAD_PATH+ filepath);
+        try {
+            FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
+            resp.setHeader("Content-Type", "application/octet-stream");
+        } catch (FileNotFoundException e) {
+//            req.setAttribute("exception", new FileNotFoundException("请求的文件不存在"));
+//            req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req, resp);
+        }
+    }
     //    下载
     public static void fileDownload(String filepath, HttpServletResponse resp) throws  ServletException ,IOException{
-
+        int index = filepath.indexOf(FILE_PATH);
+        if(index >= 0) {
+            filepath = filepath.substring(index +FILE_PATH.length());
+        }
         File file = new File(UPLOAD_PATH +filepath);
         try {
             FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
@@ -93,7 +118,7 @@ public class FileUtils {
             }
             //将上传的文件写入目标文件
             file.transferTo(targetFile);
-            fileEntity.setFilePath(filePath);
+            fileEntity.setFilePath(FILE_PATH+filePath);
         }
         return fileEntity;
     }
@@ -110,4 +135,6 @@ public class FileUtils {
         }
         return new String(chars);
     }
+
+
 }

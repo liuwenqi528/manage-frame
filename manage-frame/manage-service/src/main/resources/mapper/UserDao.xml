@@ -3,48 +3,58 @@
 <mapper namespace="com.manage.frame.dao.UserDao">
 
     <sql id="userColumns">
-        id as id,
-        username as username,
-        truename as truename,
-        password as password,
-        photo as photo,
-        state as state,
-        salt as salt
+        u.id as id,
+        u.username as username,
+        u.truename as truename,
+        u.password as password,
+        u.photo as photo,
+        u.state as state,
+        u.salt as salt
 	</sql>
+    <resultMap type="UserEntity" id="UserAndFile">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="truename" column="truename"/>
+        <result property="password" column="password"/>
+        <result property="photo" column="photo"/>
+        <result property="state" column="state"/>
+        <result property="salt" column="salt"/>
+        <association property="fileEntity" column="{id = photo}" javaType="FileEntity" select="com.manage.frame.dao.FileDao.getOne"/>
+    </resultMap>
 
     <!--登陆-->
     <select id="login" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_sys_user
-        where username = #{username}
+        from m_sys_user u
+        where u.username = #{username}
     </select>
 
     <!--根据ID获取详情-->
-    <select id="get" resultType="UserEntity">
+    <select id="get"  resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_sys_user
-        where id = #{id}
+        from m_sys_user u
+        where u.id = #{id}
     </select>
 
 
     <select id="findByQuery" resultType="UserEntity">
         select
         <include refid="userColumns"/>
-        from m_sys_user
+        from m_sys_user u
         <where>
             <if test="username != null and username !=''">
-                and username like "%"+#{username}+"%"
+                and u.username like "%"+#{username}+"%"
             </if>
         </where>
-        order by username
+        order by u.username
     </select>
-    <select id="findAll" resultType="UserEntity">
+    <select id="findAll" resultMap="UserAndFile">
         select
         <include refid="userColumns"/>
-        from m_sys_user
-        order by username
+        from m_sys_user u
+        order by u.username
     </select>
 
 
