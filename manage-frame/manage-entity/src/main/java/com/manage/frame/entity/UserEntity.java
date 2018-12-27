@@ -1,5 +1,6 @@
 package com.manage.frame.entity;
 
+import com.manage.frame.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
-public class UserEntity implements Serializable {
+public class UserEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -686804261437373398L;
 

@@ -1,6 +1,6 @@
 package com.manage.frame.controller.System;
 
-import com.manage.frame.shiro.MyShiroRealm;
+import com.manage.frame.config.shiro.MyShiroRealm;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.stereotype.Controller;

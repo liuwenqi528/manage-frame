@@ -1,4 +1,4 @@
-package com.manage.frame.shiro;
+package com.manage.frame.config.shiro;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -13,6 +13,7 @@ import org.apache.shiro.session.mgt.eis.SessionIdGenerator;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.filter.authc.UserFilter;
 import org.apache.shiro.web.mgt.CookieRememberMeManager;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
@@ -57,6 +58,13 @@ public class ShiroConfig {
     }
 
     @Bean
+    public UserFilter userFilter() {
+        UserFilter userFilter = new UserFilter();
+        //对应前端的checkbox的name = rememberMe
+        return userFilter;
+    }
+
+    @Bean
     public ShiroFilterFactoryBean shirFilter(SecurityManager securityManager) {
 
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -76,7 +84,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/ajaxLogin", "anon");
-        filterChainDefinitionMap.put("/manage/**", "user");
+        filterChainDefinitionMap.put("/manage/**", "anon");
         filterChainDefinitionMap.put("/**", "user");//如果设置为authc,则会一直让登陆
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
@@ -134,7 +142,7 @@ public class ShiroConfig {
         //setcookie()的第七个参数
         //设为true后，只能通过http访问，javascript无法访问
         //防止xss读取cookie
-//        simpleCookie.setHttpOnly(true);
+        simpleCookie.setHttpOnly(false);
         simpleCookie.setPath("/");
         //maxAge=-1表示浏览器关闭时失效此Cookie
         simpleCookie.setMaxAge(2592000);
@@ -154,7 +162,7 @@ public class ShiroConfig {
         //setcookie()的第七个参数
         //设为true后，只能通过http访问，javascript无法访问
         //防止xss读取cookie
-//        simpleCookie.setHttpOnly(true);
+        simpleCookie.setHttpOnly(false);
         simpleCookie.setPath("/");
         //maxAge=-1表示浏览器关闭时失效此Cookie
         simpleCookie.setMaxAge(-1);

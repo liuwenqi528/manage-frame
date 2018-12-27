@@ -17,7 +17,7 @@ public interface UserService {
 
     List<UserEntity> findByQuery(UserEntity entity);
 
-    int insert(UserEntity entity);
+    int save(UserEntity entity);
 
     int update(UserEntity entity);
 

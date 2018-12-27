@@ -1,4 +1,4 @@
-package com.manage.frame.shiro;
+package com.manage.frame.config.shiro;
 
 
 import com.manage.frame.entity.SysPermission;

@@ -16,20 +16,21 @@ import org.springframework.web.filter.CorsFilter;
  * Time: 11:31
  */
 @Slf4j
-@Configuration
+//@Configuration
 public class WebCorsConfiguration {
-    @Value("${web.config.allowedOrigins}")
+//    @Value("${web.config.allowedOrigins}")
     private String allowedOrigin;
-    @Value("${web.config.maxAge}")
+//    @Value("${web.config.maxAge}")
     private Long maxAge;
 
     /**
      * 支持跨域
      */
     private CorsConfiguration buildConfig() {
+        System.out.println("origin=="+allowedOrigin);
         CorsConfiguration corsConfiguration = new CorsConfiguration();
-//        corsConfiguration.addAllowedOrigin(allowedOrigin);
-        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedOrigin(allowedOrigin);
+//        corsConfiguration.addAllowedOrigin("*");
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
         corsConfiguration.setAllowCredentials(true);

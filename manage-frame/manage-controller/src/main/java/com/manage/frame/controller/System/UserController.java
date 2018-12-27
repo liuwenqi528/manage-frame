@@ -30,6 +30,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 根据ID获取用户详情
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/get/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseParam get(@PathVariable("id") String id) {
@@ -41,6 +46,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 根据条件查询
+     * @param entity
+     * @return
+     */
     @RequestMapping(value = "/findByQuery", method = RequestMethod.POST)
     @ResponseBody
     public ResponseParam findByQuery(@RequestBody UserEntity entity) {
@@ -52,6 +62,10 @@ public class UserController {
         }
     }
 
+    /**
+     * 全查
+     * @return
+     */
     @RequestMapping(value = "/findAll", method = RequestMethod.POST)
     @ResponseBody
     public ResponseParam findAll() {
@@ -63,28 +77,39 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/insert", method = RequestMethod.POST)
+    /**
+     * 保存--添加保存和修改保存
+     * @param entity
+     * @return
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseParam insert(@RequestBody UserEntity entity) {
+    public ResponseParam save(@RequestBody UserEntity entity) {
         try {
-            return ResponseParam.success("添加成功").data(userService.insert(entity));
+            return ResponseParam.success("保存成功").data(userService.save(entity));
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseParam.fail("添加失败");
+            return ResponseParam.fail("保存失败");
         }
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseParam update(@RequestBody UserEntity entity) {
-        try {
-            return ResponseParam.success("修改成功").data(userService.update(entity));
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseParam.fail("修改失败");
-        }
-    }
 
+//    @RequestMapping(value = "/update", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseParam update(@RequestBody UserEntity entity) {
+//        try {
+//            return ResponseParam.success("修改成功").data(userService.update(entity));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseParam.fail("修改失败");
+//        }
+//    }
+
+    /**
+     * 根据ID单一删除
+     * @param id
+     * @return
+     */
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     @ResponseBody
     public ResponseParam delete(@PathVariable("id") String id) {
@@ -95,4 +120,5 @@ public class UserController {
             return ResponseParam.fail("删除失败");
         }
     }
+
 }
