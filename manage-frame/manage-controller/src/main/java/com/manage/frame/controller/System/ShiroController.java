@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @Slf4j
+@RequestMapping("/shiro")
 public class ShiroController {
 
     /**
@@ -53,6 +54,25 @@ public class ShiroController {
             e.printStackTrace();
             return ResponseParam.fail(ResponseParam.ERROR, "该用户不存在");
         } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseParam.fail(ResponseParam.ERROR, "失败");
+        }
+    }
+
+    /**
+     * 登出方法
+     *
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseParam logout() {
+            log.info("tuichu");
+//        Subject subject = SecurityUtils.getSubject();
+//        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRememberMe());
+        try {
+            return ResponseParam.success("登出成功");
+        } catch(Exception e) {
             e.printStackTrace();
             return ResponseParam.fail(ResponseParam.ERROR, "失败");
         }

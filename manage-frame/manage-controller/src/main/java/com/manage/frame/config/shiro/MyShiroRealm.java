@@ -89,7 +89,7 @@ public class MyShiroRealm extends AuthorizingRealm {
                 //如果shiro未配置加密方式，则此处传入加密后的密码
 //                new Md5Hash(password,userInfo.getUsername()).toHex(),
                 //传入盐值
-                ByteSource.Util.bytes(userInfo.getUsername()),//salt=username
+                ByteSource.Util.bytes(userInfo.getSalt()),//salt=username
                 getName()  //realm name
         );
         return authenticationInfo;

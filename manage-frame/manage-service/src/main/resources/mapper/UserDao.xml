@@ -9,7 +9,12 @@
         u.password as password,
         u.photo as photo,
         u.state as state,
-        u.salt as salt
+        u.salt as salt,
+        u.create_time as "createTime",
+        u.create_user as "createUser",
+        u.update_time as "updateTime",
+        u.update_user as "updateUser",
+        u.del_flag as "delFlag"
 	</sql>
     <resultMap type="UserEntity" id="UserAndFile">
         <id property="id" column="id"/>
@@ -19,6 +24,10 @@
         <result property="photo" column="photo"/>
         <result property="state" column="state"/>
         <result property="salt" column="salt"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUser" column="create_user"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUser" column="update_user"/>
         <association property="fileEntity" column="{id = photo}" javaType="FileEntity" select="com.manage.frame.dao.FileDao.getOne"/>
     </resultMap>
 

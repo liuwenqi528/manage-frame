@@ -3,8 +3,11 @@ package com.manage.frame.service.impl;
 import com.manage.frame.dao.UserDao;
 import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
+import com.manage.frame.utils.Digests;
+import com.manage.frame.utils.EncodesUtils;
 import com.manage.frame.utils.UserState;
 import com.manage.frame.utils.UserUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.crypto.hash.SimpleHash;
@@ -23,6 +26,7 @@ import java.util.UUID;
  * Date: 2018/12/4
  * Time: 14:26
  */
+@Slf4j
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -70,7 +74,10 @@ public class UserServiceImpl implements UserService {
         // 修改
         if (entity != null && StringUtils.isNoneBlank(entity.getId())) {
             if (StringUtils.isNoneBlank(entity.getPassword())) {
-                String pwd = new Md5Hash(entity.getPassword(), entity.getUsername(), 1024).toHex();
+                String salt = EncodesUtils.encodeHex(Digests.generateSalt(8));
+                log.info("salt:{}",salt);
+                String pwd = new Md5Hash(entity.getPassword(), salt, 1024).toHex();
+                entity.setSalt(salt);
                 entity.setPassword(pwd);
             }
             entity.setUpdateTime(date);
@@ -81,7 +88,10 @@ public class UserServiceImpl implements UserService {
             entity.setId(UUID.randomUUID().toString());
 //        ByteSource credentialsSalt = ByteSource.Util.bytes(entity.getUsername());
 //        String pwd = new SimpleHash("MD5",entity.getPassword(),credentialsSalt,1024).toString();
-            String pwd = new Md5Hash(entity.getPassword(), entity.getUsername(), 1024).toHex();
+            String salt = EncodesUtils.encodeHex(Digests.generateSalt(8));
+            log.info("salt:{}",salt);
+            String pwd = new Md5Hash(entity.getPassword(), salt, 1024).toHex();
+            entity.setSalt(salt);
             entity.setPassword(pwd);
             entity.setCreateTime(date);
             entity.setCreateUser(currentUserId);
@@ -106,4 +116,5 @@ public class UserServiceImpl implements UserService {
         entity.setState(UserState.DEL.getCode());
         return userDao.update(entity);
     }
+
 }
