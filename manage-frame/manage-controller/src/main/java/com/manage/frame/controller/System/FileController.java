@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 
 /**
  * Created by
@@ -57,11 +58,14 @@ public class FileController {
     public ResponseParam fileDownload(@PathVariable String id , HttpServletResponse response) {
         try {
             FileEntity fileEntity = fileService.getOne(id);
-            FileUtils.fileDownload(fileEntity.getFilePath(),response);
+            FileUtils.fileDownload(fileEntity,response);
             return ResponseParam.success();
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return ResponseParam.fail();
+            return ResponseParam.fail("文件不存在");
+        } catch (Exception e){
+            e.printStackTrace();
+            return ResponseParam.fail("文件下载异常");
         }
     }
 

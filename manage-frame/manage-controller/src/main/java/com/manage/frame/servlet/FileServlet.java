@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -39,8 +40,9 @@ public class FileServlet extends HttpServlet {
 //            FileEntity fileEntity = fileService.getOne(id);
             FileUtils.fileEcho(req,resp);
 
-        } catch (Exception e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
+            resp.getWriter().write("打开的文件不存在。");
         }
     }
 }

@@ -2,6 +2,7 @@ package com.manage.frame.utils;
 
 import com.manage.frame.entity.FileEntity;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,14 +11,18 @@ import org.springframework.web.util.UriUtils;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+
 @Slf4j
 public class FileUtils {
     //    @Value("${file.path.upload}")
@@ -54,17 +59,18 @@ public class FileUtils {
 
     /**
      * 回显图片
+     *
      * @param req
      * @param resp
      */
-    public static void fileEcho(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+    public static void fileEcho(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String filepath = req.getRequestURI();
         int index = filepath.indexOf(FILE_PATH);
-        if(index >= 0) {
-            filepath = filepath.substring(index +FILE_PATH.length());
+        if (index >= 0) {
+            filepath = filepath.substring(index + FILE_PATH.length());
         }
-            filepath = UriUtils.decode(filepath, "UTF-8");
-        File file = new File(UPLOAD_PATH+ filepath);
+        filepath = UriUtils.decode(filepath, "UTF-8");
+        File file = new File(UPLOAD_PATH + filepath);
         try {
             FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
             resp.setHeader("Content-Type", "application/octet-stream");
@@ -73,21 +79,33 @@ public class FileUtils {
 //            req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req, resp);
         }
     }
+
     //    下载
-    public static void fileDownload(String filepath, HttpServletResponse resp) throws  ServletException ,IOException{
+    public static void fileDownload(FileEntity fileEntity, HttpServletResponse resp) throws ServletException, IOException {
+        String filepath = fileEntity.getFilePath();
         int index = filepath.indexOf(FILE_PATH);
-        if(index >= 0) {
-            filepath = filepath.substring(index +FILE_PATH.length());
+        if (index >= 0) {
+            filepath = filepath.substring(index + FILE_PATH.length());
         }
-        File file = new File(UPLOAD_PATH +filepath);
-        try {
-            FileCopyUtils.copy(new FileInputStream(file), resp.getOutputStream());
-            resp.setHeader("Content-Type", "application/octet-stream");
-        } catch (FileNotFoundException e) {
-//            req.setAttribute("exception", new FileNotFoundException("请求的文件不存在"));
-//            req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req, resp);
+        File file = new File(UPLOAD_PATH + filepath);
+        OutputStream outputStream = null;
+        resp.reset();
+        //根据ID查询
+        String fileName = fileEntity.getFileOldName();
+        if (fileName != null && fileName.length() != 0) {
+            fileName = URLEncoder.encode(fileName, "UTF-8");
+            resp.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
         }
+
+        byte[] data = org.apache.commons.io.FileUtils.readFileToByteArray(file);
+        resp.addHeader("Content-Length", "" + data.length);
+
+        outputStream = new BufferedOutputStream(resp.getOutputStream());
+        outputStream.write(data);
+//            outputStream.close();
+        IOUtils.closeQuietly(outputStream);
     }
+
     //    上传
     public static FileEntity fileUpload(MultipartFile file, String path) throws Exception {
         FileEntity fileEntity = null;
@@ -107,17 +125,17 @@ public class FileUtils {
             SimpleDateFormat dateFormat = new SimpleDateFormat("/yyyy/MM/");
             String date = dateFormat.format(new Date());
             //拼接附件存储的地址/
-            String filePath =  path + date + fileNewName + fileType;
+            String filePath = path + date + fileNewName + fileType;
 
             //根据拼接的附件存储地址，创建一个目标文件对象
-            File targetFile = new File(UPLOAD_PATH +filePath);
+            File targetFile = new File(UPLOAD_PATH + filePath);
             File pFile = targetFile.getParentFile();
             if (!pFile.exists()) {
                 pFile.mkdirs();
             }
             //将上传的文件写入目标文件
             file.transferTo(targetFile);
-            fileEntity.setFilePath(FILE_PATH+filePath);
+            fileEntity.setFilePath(FILE_PATH + filePath);
         }
         return fileEntity;
     }
