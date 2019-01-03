@@ -52,7 +52,7 @@ public class WebSessionManager extends DefaultWebSessionManager {
     @Override
     protected Serializable getSessionId(ServletRequest request, ServletResponse response) {
 //        String id = WebUtils.toHttp(request).getHeader(AUTHORIZATION);
-        String sid = request.getParameter("__sid");
+        String sid = request.getParameter("rememberId");
         log.info("sid:{}", sid);
         //如果请求头中有 Authorization 则其值为sessionId
         if (!StringUtils.isEmpty(sid)) {

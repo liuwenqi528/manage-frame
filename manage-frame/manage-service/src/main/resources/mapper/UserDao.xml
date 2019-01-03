@@ -32,7 +32,7 @@
     </resultMap>
 
     <!--登陆-->
-    <select id="login" resultType="UserEntity">
+    <select id="login" resultMap="UserAndFile">
         select
         <include refid="userColumns"/>
         from m_sys_user u
@@ -40,7 +40,7 @@
     </select>
 
     <!--根据ID获取详情-->
-    <select id="get"  resultType="UserEntity">
+    <select id="get"  resultMap="UserAndFile">
         select
         <include refid="userColumns"/>
         from m_sys_user u
@@ -89,7 +89,7 @@
             <if test="state != null and state !=''">
                 state = #{ state},
             </if>
-            <if test="updateTime != null and updateTime !=''">
+            <if test="updateTime != null">
                 update_time = #{ updateTime},
             </if>
             <if test="updateUser != null and updateUser !=''">

@@ -27,9 +27,9 @@ public class CrosFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
         log.debug("{} 允许 跨域访问", request.getRequestURI());
-        log.info("corsInterceptor");
-        log.info("cors请求地址：{}", request.getServletPath());
-        log.info("cors请求方式：{}", request.getMethod());
+        log.info("CrosFilter");
+        log.info("CrosFilter请求地址：{}", request.getServletPath());
+        log.info("CrosFilter请求方式：{}", request.getMethod());
         String method = request.getMethod();
 
         String origin = request.getHeader("Origin");

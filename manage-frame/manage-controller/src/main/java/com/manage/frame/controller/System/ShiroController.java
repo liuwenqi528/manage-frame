@@ -67,12 +67,12 @@ public class ShiroController {
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     @ResponseBody
     public ResponseParam logout() {
-            log.info("tuichu");
-//        Subject subject = SecurityUtils.getSubject();
-//        UsernamePasswordToken token = new UsernamePasswordToken(userEntity.getUsername(), userEntity.getPassword(), userEntity.getRememberMe());
+        log.info("tuichu");
+        Subject subject = SecurityUtils.getSubject();
+        subject.logout();
         try {
             return ResponseParam.success("登出成功");
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResponseParam.fail(ResponseParam.ERROR, "失败");
         }

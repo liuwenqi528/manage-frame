@@ -79,12 +79,12 @@ public class ShiroConfig {
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         //注意过滤器配置顺序 不能颠倒
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
-        filterChainDefinitionMap.put("/shiro/logout", "logout");
+        filterChainDefinitionMap.put("/shiro/logout", "user");
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/shiro/**", "anon");
-        filterChainDefinitionMap.put("/manage/**", "anon");
+        filterChainDefinitionMap.put("/manage/**", "user");
         filterChainDefinitionMap.put("/**", "user");//如果设置为authc,则会一直让登陆
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);

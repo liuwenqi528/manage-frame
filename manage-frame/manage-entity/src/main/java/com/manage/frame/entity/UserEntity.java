@@ -3,6 +3,7 @@ package com.manage.frame.entity;
 import com.manage.frame.base.BaseEntity;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.beans.Transient;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 @Setter
 @Getter
+@ToString(exclude = {"salt","rememberMe"})
 public class UserEntity extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = -686804261437373398L;
