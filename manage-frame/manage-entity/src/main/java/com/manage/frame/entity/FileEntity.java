@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -13,7 +14,8 @@ import java.util.Date;
  * Time: 11:23
  */
 @Data
-public class FileEntity {
+public class FileEntity implements Serializable {
+
     private String id;
     private String fileNewName;
     private String fileOldName;

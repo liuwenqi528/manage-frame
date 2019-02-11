@@ -1,12 +1,8 @@
 package com.manage.frame.config.shiro;
 
 
-import com.manage.frame.entity.SysPermission;
-import com.manage.frame.entity.SysRole;
 import com.manage.frame.entity.UserEntity;
-import com.manage.frame.entity.UserInfo;
-import com.manage.frame.service.SysPermissionService;
-import com.manage.frame.service.SysRoleService;
+import com.manage.frame.service.LoginService;
 import com.manage.frame.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -33,32 +29,27 @@ import java.util.List;
  */
 
 public class MyShiroRealm extends AuthorizingRealm {
-    @Autowired
-    private SysRoleService sysRoleService;
 
     @Autowired
-    private SysPermissionService sysPermissionService;
-
-    @Autowired
-    private UserService userService;
+    private LoginService loginService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         System.out.println("权限配置-->MyShiroRealm.doGetAuthorizationInfo()");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-        UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
-        try {
-            List<SysRole> roles = sysRoleService.selectRoleByUser(userInfo);
-            for (SysRole role : roles) {
-                authorizationInfo.addRole(role.getRole());
-            }
-            List<SysPermission> sysPermissions = sysPermissionService.selectPermByUser(userInfo);
-            for (SysPermission perm : sysPermissions) {
-                authorizationInfo.addStringPermission(perm.getPermission());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        UserInfo userInfo = (UserInfo) principals.getPrimaryPrincipal();
+//        try {
+//            List<SysRole> roles = sysRoleService.selectRoleByUser(userInfo);
+//            for (SysRole role : roles) {
+//                authorizationInfo.addRole(role.getRole());
+//            }
+//            List<SysPermission> sysPermissions = sysPermissionService.selectPermByUser(userInfo);
+//            for (SysPermission perm : sysPermissions) {
+//                authorizationInfo.addStringPermission(perm.getPermission());
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return authorizationInfo;
     }
 
@@ -75,12 +66,12 @@ public class MyShiroRealm extends AuthorizingRealm {
         //实际项目中，这里可以根据实际情况做缓存，如果不做，Shiro自己也是有时间间隔机制，2分钟内不会重复执行该方法
         UserEntity ew = new UserEntity();
         ew.setUsername(username);
-        UserEntity userInfo = userService.login(ew);
+        UserEntity userInfo = loginService.login(ew);
         if (userInfo == null) {
             throw new UnknownAccountException("账号不存在");
         }
         if (userInfo.getState() == 1) { //账户冻结
-            throw new LockedAccountException();
+            throw new LockedAccountException("账户冻结");
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
                 userInfo, //用户信息

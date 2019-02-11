@@ -47,13 +47,16 @@ public class ShiroConfig {
      * @return
      */
     @Bean
-    public FormAuthenticationFilter formAuthenticationFilter() {
-        FormAuthenticationFilter formAuthenticationFilter = new FormAuthenticationFilter();
+    public ManageFormAuthenticationFilter formAuthenticationFilter() {
+        ManageFormAuthenticationFilter formAuthenticationFilter = new ManageFormAuthenticationFilter();
         //对应前端的checkbox的name = rememberMe
         formAuthenticationFilter.setUsernameParam("username");
         formAuthenticationFilter.setPasswordParam("password");
         formAuthenticationFilter.setRememberMeParam("rememberMe");
-        formAuthenticationFilter.setLoginUrl("/noLogin");
+        formAuthenticationFilter.setCaptchaParam("captcha");
+        formAuthenticationFilter.setCaptchaSessionKeyParam("session-captcha");
+//        formAuthenticationFilter.set
+        formAuthenticationFilter.setLoginUrl("/shiro/ajaxLogin");
         return formAuthenticationFilter;
     }
 
@@ -80,6 +83,7 @@ public class ShiroConfig {
         //注意过滤器配置顺序 不能颠倒
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了，登出后跳转配置的loginUrl
         filterChainDefinitionMap.put("/shiro/logout", "user");
+        filterChainDefinitionMap.put("/shiro/ajaxLogin", "authc");
         // 配置不会被拦截的链接 顺序判断
         filterChainDefinitionMap.put("/druid/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");

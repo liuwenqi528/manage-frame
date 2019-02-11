@@ -11,11 +11,10 @@ import org.apache.shiro.subject.Subject;
  * User: Liuwq
  * Date: 2018/12/27
  * Time: 11:27
- *
+ * <p>
  * 用户信息
  */
 public class UserUtils {
-
 
 
     /**
@@ -31,7 +30,7 @@ public class UserUtils {
     public static UserEntity getPrincipal() {
         try {
             Subject subject = SecurityUtils.getSubject();
-            UserEntity userInfo = (UserEntity)subject.getPrincipal();
+            UserEntity userInfo = (UserEntity) subject.getPrincipal();
             if (userInfo != null) {
                 return userInfo;
             }

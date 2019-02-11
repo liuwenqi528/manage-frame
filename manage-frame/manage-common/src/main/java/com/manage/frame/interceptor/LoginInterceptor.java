@@ -38,7 +38,6 @@ public class LoginInterceptor implements HandlerInterceptor {
         if ("OPTIONS".equals(method)) {
             return true;
         }
-        Subject subject = SecurityUtils.getSubject();
         Object obj = SecurityUtils.getSubject().getPrincipal();
         log.info("user interceptor用户信息：{}", obj);
         String userId = httpServletRequest.getParameter("userId");

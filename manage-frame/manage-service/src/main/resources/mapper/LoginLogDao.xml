@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manage.frame.dao.LoginLogDao">
+
+    <sql id="loginLogColumns">
+        login_user_id as "loginUserId",
+        client_name as "clientName",
+        client_ip as "clientIp",
+        client_mac as "clientMac",
+        client_address as "clientAddress",
+        login_state as "loginState",
+        login_date as "loginDate",
+        login_description as "loginDescription",
+        id as "id"
+	</sql>
+
+
+    <!--根据ID获取详情-->
+    <select id="getOne" resultType="LoginLogEntity">
+        select
+        <include refid="loginLogColumns"/>
+        from m_sys_login_log
+        where id = #{id}
+    </select>
+
+    <select id="getByParam" resultType="LoginLogEntity">
+        select
+        <include refid="loginLogColumns"/>
+        from m_sys_login_log
+        where id = #{id}
+    </select>
+
+    <select id="findAll" resultType="LoginLogEntity">
+        select
+        <include refid="loginLogColumns"/>
+        from m_sys_login_log
+    </select>
+
+    <select id="findByParam" resultType="LoginLogEntity">
+        select
+        <include refid="loginLogColumns"/>
+        from m_sys_login_log
+
+    </select>
+
+
+
+    <insert id="insert" parameterType="LoginLogEntity">
+       insert into m_sys_login_log
+       (id ,
+       login_user_id,
+       client_name,
+       client_ip,
+       client_mac,
+       client_address,
+       login_state,
+       login_date,
+       login_description)
+       VALUES
+       (#{id},
+       #{loginUserId},
+       #{clientName},
+       #{clientIp},
+       #{clientMac},
+       #{clientAddress},
+       #{loginState},
+       #{loginDate},
+       #{loginDescription})
+    </insert>
+
+    <update id="update">
+        UPDATE m_sys_login_log SET
+       login_user_id =#{loginUserId},
+        client_name =#{clientName},
+        client_ip =#{clientIp},
+        client_mac =#{clientMac},
+        "client_address" =#{clientAddress},
+        login_state =#{loginState},
+        login_date =#{loginDate},
+        login_description =#{loginDescription}
+        WHERE id = #{id}
+    </update>
+
+    <update id="delete">
+		DELETE FROM m_sys_login_log
+		WHERE id = #{id}
+	</update>
+    <delete id="deleteByParam">
+        delete from m_sys_login_log where id=#{id}
+    </delete>
+</mapper>

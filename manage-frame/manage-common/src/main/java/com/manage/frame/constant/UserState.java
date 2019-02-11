@@ -1,4 +1,4 @@
-package com.manage.frame.utils;
+package com.manage.frame.constant;
 
 /**
  * Created by

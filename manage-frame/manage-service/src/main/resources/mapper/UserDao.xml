@@ -4,7 +4,15 @@
 
     <sql id="userColumns">
         u.id as id,
+        u.usersort as usersort,
         u.username as username,
+        u.description as description,
+        u.role_name as "roleName",
+        u.org_name as "orgName",
+        u.login_error_count as "loginErrorCount",
+        u.last_login_ip as "lastLoginIp",
+        u.last_login_date as "lastLoginDate",
+        u.login_count as "loginCount",
         u.truename as truename,
         u.password as password,
         u.photo as photo,
@@ -21,6 +29,14 @@
         <result property="username" column="username"/>
         <result property="truename" column="truename"/>
         <result property="password" column="password"/>
+        <result property="usersort" column="usersort"/>
+        <result property="description" column="description"/>
+        <result property="roleName" column="role_name"/>
+        <result property="orgName" column="org_name"/>
+        <result property="loginErrorCount" column="login_error_count"/>
+        <result property="lastLoginIp" column="last_login_ip"/>
+        <result property="lastLoginDate" column="last_login_date"/>
+        <result property="loginCount" column="login_count"/>
         <result property="photo" column="photo"/>
         <result property="state" column="state"/>
         <result property="salt" column="salt"/>
@@ -69,9 +85,9 @@
 
     <insert id="insert" parameterType="UserEntity">
        insert into m_sys_user
-       (id ,username,password,truename,photo,salt,state,create_time,create_user,del_flag)
+       (id ,usersort,username,password,truename,description,photo,salt,state,create_time,create_user,del_flag)
        VALUES
-       (#{id},#{username},#{password},#{truename},#{photo},#{salt},#{state},#{createTime},#{createUser},#{delFlag})
+       (#{id},#{usersort},#{username},#{password},#{truename},#{description},#{photo},#{salt},#{state},#{createTime},#{createUser},#{delFlag})
     </insert>
 
     <update id="update">
@@ -97,6 +113,30 @@
             </if>
             <if test="delFlag != null and delFlag !=''">
                 del_flag = #{ delFlag},
+            </if>
+            <if test="usersort != null and usersort !=''">
+                usersort = #{usersort},
+            </if>
+            <if test="description != null and description !=''">
+                description = #{description},
+            </if>
+            <if test="roleName != null and roleName !=''">
+                role_name = #{roleName},
+            </if>
+            <if test="orgName != null and orgName !=''">
+                org_name = #{orgName},
+            </if>
+            <if test="loginErrorCount != null and loginErrorCount !=''">
+                login_error_count = #{loginErrorCount},
+            </if>
+            <if test="lastLoginIp != null and lastLoginIp !=''">
+                last_login_ip = #{lastLoginIp},
+            </if>
+            <if test="lastLoginDate != null">
+                last_login_date = #{lastLoginDate},
+            </if>
+            <if test="loginCount != null and loginCount !=''">
+                login_count = #{loginCount},
             </if>
         </trim>
         WHERE id = #{id}

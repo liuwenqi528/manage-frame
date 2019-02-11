@@ -5,7 +5,7 @@ import com.manage.frame.entity.UserEntity;
 import com.manage.frame.service.UserService;
 import com.manage.frame.utils.Digests;
 import com.manage.frame.utils.EncodesUtils;
-import com.manage.frame.utils.UserState;
+import com.manage.frame.constant.UserState;
 import com.manage.frame.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -60,10 +60,7 @@ public class UserServiceImpl implements UserService {
         return userDao.findAll();
     }
 
-    @Override
-    public UserEntity login(UserEntity ew) {
-        return userDao.login(ew);
-    }
+
 
     @Override
     @Transactional(readOnly = false)
@@ -75,7 +72,7 @@ public class UserServiceImpl implements UserService {
         if (entity != null && StringUtils.isNoneBlank(entity.getId())) {
             if (StringUtils.isNoneBlank(entity.getPassword())) {
                 String salt = EncodesUtils.encodeHex(Digests.generateSalt(8));
-                log.info("salt:{}",salt);
+                log.info("salt:{}", salt);
                 String pwd = new Md5Hash(entity.getPassword(), salt, 1024).toHex();
                 entity.setSalt(salt);
                 entity.setPassword(pwd);
@@ -89,7 +86,7 @@ public class UserServiceImpl implements UserService {
 //        ByteSource credentialsSalt = ByteSource.Util.bytes(entity.getUsername());
 //        String pwd = new SimpleHash("MD5",entity.getPassword(),credentialsSalt,1024).toString();
             String salt = EncodesUtils.encodeHex(Digests.generateSalt(8));
-            log.info("salt:{}",salt);
+            log.info("salt:{}", salt);
             String pwd = new Md5Hash(entity.getPassword(), salt, 1024).toHex();
             entity.setSalt(salt);
             entity.setPassword(pwd);
